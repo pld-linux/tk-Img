@@ -41,13 +41,15 @@ oraz PostScript.
 %{__aclocal}
 %{__autoconf}
 %configure
-%{__make} IMG_LD_SEARCH_FLAGS=""
+%{__make} \
+	IMG_LD_SEARCH_FLAGS=""
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT \
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
 	IMG_LD_SEARCH_FLAGS=""
 
 %clean
@@ -56,4 +58,4 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ANNOUNCE README changes license.terms
-/usr/lib/Img*
+%{_prefix}/lib/Img*
