@@ -1,0 +1,145 @@
+diff -ru --exclude '*~' --exclude '*.o' img1.2.4.orig/imgBMP.c img1.2.4/imgBMP.c
+--- img1.2.4.orig/imgBMP.c	2000-08-13 06:08:30.000000000 +0200
++++ img1.2.4/imgBMP.c	2003-06-16 12:58:14.368457230 +0200
+@@ -255,7 +255,7 @@
+ 	    block.pixelPtr = line + srcX*3;
+ 	    for( y = height-1; y>=0; y--) {
+ 		ImgRead(handle, line, bytesPerLine);
+-		Tk_PhotoPutBlock(imageHandle, &block, destX, destY+y,
++		Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY+y,
+ 			width,1);
+ 	    }
+ 	    break;
+@@ -267,7 +267,7 @@
+ 		    memcpy(expline, colorMap+(3*line[x]),3);
+ 		    expline += 3;
+ 		}
+-		Tk_PhotoPutBlock(imageHandle, &block, destX, destY+y,
++		Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY+y,
+ 			width,1);
+ 		expline = block.pixelPtr;
+ 	    }
+@@ -286,7 +286,7 @@
+ 		    memcpy(expline, colorMap+(3*c),3);
+ 		    expline += 3;
+ 		}
+-		Tk_PhotoPutBlock(imageHandle, &block, destX, destY+y,
++		Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY+y,
+ 			width,1);
+ 		expline = block.pixelPtr;
+ 	    }
+@@ -301,7 +301,7 @@
+ 		    memcpy(expline, colorMap+(3*c),3);
+ 		    expline += 3;
+ 		}
+-		Tk_PhotoPutBlock(imageHandle, &block, destX, destY+y,
++		Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY+y,
+ 			width,1);
+ 		expline = block.pixelPtr;
+ 	    }
+diff -ru --exclude '*~' --exclude '*.o' img1.2.4.orig/imgGIF.c img1.2.4/imgGIF.c
+--- img1.2.4.orig/imgGIF.c	2000-08-13 06:09:39.000000000 +0200
++++ img1.2.4/imgGIF.c	2003-06-16 12:58:25.911037926 +0200
+@@ -482,7 +482,7 @@
+     }
+ 
+     if (transparent == -1) {
+-	Tk_PhotoPutBlock(imageHandle, &block, destX, destY, width, height);
++	Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY, width, height);
+     } else {
+ 	ImgPhotoPutBlock(imageHandle, &block, destX, destY, width, height);
+     }
+diff -ru --exclude '*~' --exclude '*.o' img1.2.4.orig/imgJPEG.c img1.2.4/imgJPEG.c
+--- img1.2.4.orig/imgJPEG.c	2000-08-13 06:10:22.000000000 +0200
++++ img1.2.4/imgJPEG.c	2003-06-16 12:58:47.805243254 +0200
+@@ -1030,7 +1030,7 @@
+     for (curY = 0; curY < stopY; curY++) {
+       jpeg.read_scanlines(cinfo, buffer, 1);
+       if (curY >= srcY) {
+-	Tk_PhotoPutBlock(imageHandle, &block, destX, outY, outWidth, 1);
++	Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, outY, outWidth, 1);
+ 	outY++;
+       }
+     }
+diff -ru --exclude '*~' --exclude '*.o' img1.2.4.orig/imgPS.c img1.2.4/imgPS.c
+--- img1.2.4.orig/imgPS.c	2000-08-13 06:06:53.000000000 +0200
++++ img1.2.4/imgPS.c	2003-06-16 12:59:41.095399096 +0200
+@@ -395,7 +395,7 @@
+ 	        for (j = 0; j < width; j++) {
+ 		    line3[j] = ((line[(j+srcX)/8]>>(7-(j+srcX)%8) & 1)) ? 0 : 255;
+ 	        }
+-		Tk_PhotoPutBlock(imageHandle, &block, destX, destY++, width, 1);
++		Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY++, width, 1);
+ 	    }
+ 	    break;
+ 	case '5':
+@@ -413,7 +413,7 @@
+ 			c++;
+ 		    }
+ 		}
+-		Tk_PhotoPutBlock(imageHandle, &block, destX, destY++, width, 1);
++		Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY++, width, 1);
+ 	    }
+ 	    break;
+ 	case '6':
+@@ -435,7 +435,7 @@
+ 			c++;
+ 		    }
+ 		}
+-		Tk_PhotoPutBlock(imageHandle, &block, destX, destY++, width, 1);
++		Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY++, width, 1);
+ 	    }
+ 	    break;
+     }
+diff -ru --exclude '*~' --exclude '*.o' img1.2.4.orig/imgUtil.c img1.2.4/imgUtil.c
+--- img1.2.4.orig/imgUtil.c	1999-03-20 23:09:14.000000000 +0100
++++ img1.2.4/imgUtil.c	2003-06-16 12:56:48.085587090 +0200
+@@ -95,7 +95,7 @@
+ 		}
+ 		if (end > X) {
+  		    blockPtr->pixelPtr =  rowPtr + blockPtr->pixelSize * X;
+-		    Tk_PhotoPutBlock(handle, blockPtr, x+X, y+Y, end-X, 1);
++		    Tk_PhotoPutBlock_NoComposite(handle, blockPtr, x+X, y+Y, end-X, 1);
+ 		}
+ 		X = end;
+ 	    }
+@@ -103,7 +103,7 @@
+ 	}
+ 	blockPtr->pixelPtr = imagePtr;
+     } else {
+-	Tk_PhotoPutBlock(handle,blockPtr,x,y,width,height);
++	Tk_PhotoPutBlock_NoComposite(handle,blockPtr,x,y,width,height);
+     }
+     return TCL_OK;
+ }
+@@ -248,4 +248,4 @@
+ 	dlclose(*handlePtr);
+     }
+     *handlePtr = IMG_FAILED;
+-}
+\ Brak znaku nowej linii na końcu pliku
++}
+diff -ru --exclude '*~' --exclude '*.o' img1.2.4.orig/imgWindow.c img1.2.4/imgWindow.c
+--- img1.2.4.orig/imgWindow.c	2000-01-15 13:25:37.000000000 +0100
++++ img1.2.4/imgWindow.c	2003-06-16 13:00:38.376390514 +0200
+@@ -378,7 +378,7 @@
+ 	}
+     }
+ 
+-    Tk_PhotoPutBlock(imageHandle, &block, destX, destY, width, height);
++    Tk_PhotoPutBlock_NoComposite(imageHandle, &block, destX, destY, width, height);
+ 
+ #ifndef	__WIN32__
+     XDestroyImage(ximage);
+diff -ru --exclude '*~' --exclude '*.o' img1.2.4.orig/imgXPM.c img1.2.4/imgXPM.c
+--- img1.2.4.orig/imgXPM.c	2000-08-13 06:41:31.000000000 +0200
++++ img1.2.4/imgXPM.c	2003-06-16 13:00:51.859440238 +0200
+@@ -504,7 +504,7 @@
+ 			    col = (int)0;
+ 		    }
+ 		} while ((i < width) && col);
+-		Tk_PhotoPutBlock(imageHandle, &block.pub, destX+j, destY, len, 1);
++		Tk_PhotoPutBlock_NoComposite(imageHandle, &block.pub, destX+j, destY, len, 1);
+ 	    } else {
+ 	        p += byteSize;
+ 	        i++;
