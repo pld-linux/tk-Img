@@ -6,6 +6,7 @@ Release:	1
 License:	distributable
 Group:		Development/Languages/Tcl
 Source0:	http://ftp.neosoft.com/cl/sorted/packages-8.0/graphics/%{name}/%{version}/img%{version}.tar.gz
+# Source0-md5:	abfda1cc55555fc2490e761bde165078
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://members1.chello.nl/~j.nijtmans/img.html
 BuildRequires:	autoconf
