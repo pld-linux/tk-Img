@@ -1,4 +1,5 @@
-Summary:	Additional file formats support for Tk.
+Summary:	Additional file formats support for Tk
+Summary(pl):	Obs³uga dodatkowych formatów plików dla Tk
 Name:		tk-Img
 Version:	1.2.4
 Release:	1
@@ -7,17 +8,24 @@ Group:		Development/Languages/Tcl
 Source0:	http://ftp.neosoft.com/cl/sorted/packages-8.0/graphics/%{name}/%{version}/img%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://members1.chello.nl/~j.nijtmans/img.html
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libjpeg-devel >= 6b
+BuildRequires:	libpng-devel >= 1.0.8
+BuildRequires:	libtiff-devel >= 3.5.5
 BuildRequires:	tk-devel
 BuildRequires:	zlib-devel >= 1.1.3
-BuildRequires:	libpng-devel >= 1.0.8
-BuildRequires:	libjpeg-devel >= 6b
-BuildRequires:	libtiff-devel >= 3.5.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 This package enhances Tk, adding support for many other Image formats:
 BMP, XBM, XPM, GIF (with transparency, but without LZW), PNG, JPEG,
-TIFF and postscript.
+TIFF and PostScript.
+
+%description -l pl
+Ten pakiet rozszerza Tk, dodaj±c obs³ugê wielu formatów graficznych:
+BMP, XBM, XPM, GIF (z przezroczysto¶ci±, ale bez LZW), PNG, JPEG, TIFF
+oraz PostScript.
 
 %prep
 %setup -qn img%{version}
