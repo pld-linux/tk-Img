@@ -1,0 +1,137 @@
+diff -durN img1.2.4.orig/Makefile.in img1.2.4/Makefile.in
+--- img1.2.4.orig/Makefile.in	Sun Aug 13 06:49:34 2000
++++ img1.2.4/Makefile.in	Sun Jan 12 09:00:54 2003
+@@ -269,84 +269,84 @@
+ install-all:	install install-z install-png install-jpeg install-tiff
+ 
+ install: $(IMG_LIB_FILE)
+-	@$(tool)/mkinstalldirs $(LIB_INSTALL_DIR)/msgs
++	@$(tool)/mkinstalldirs $(DESTDIR)$(LIB_INSTALL_DIR)/msgs
+ 	@echo "Installing $(IMG_LIB_FILE)"
+-	@$(INSTALL_SHLIB) $(IMG_LIB_FILE) $(LIB_INSTALL_DIR)
+-	@$(RANLIB) $(LIB_INSTALL_DIR)/$(IMG_LIB_FILE)
++	@$(INSTALL_SHLIB) $(IMG_LIB_FILE) $(DESTDIR)$(LIB_INSTALL_DIR)
++	@$(RANLIB) $(DESTDIR)$(LIB_INSTALL_DIR)/$(IMG_LIB_FILE)
+ 	@echo "Installing pkgIndex.tcl"
+-	@$(INSTALL_DATA) pkgIndex.tcl $(LIB_INSTALL_DIR)
++	@$(INSTALL_DATA) pkgIndex.tcl $(DESTDIR)$(LIB_INSTALL_DIR)
+ 	@echo "Installing demo.tcl"
+-	@$(INSTALL_DATA) demo.tcl $(LIB_INSTALL_DIR)
++	@$(INSTALL_DATA) demo.tcl $(DESTDIR)$(LIB_INSTALL_DIR)
+ 	@echo "Installing tkv.tcl"
+-	@$(INSTALL_DATA) tkv.tcl $(LIB_INSTALL_DIR)
++	@$(INSTALL_DATA) tkv.tcl $(DESTDIR)$(LIB_INSTALL_DIR)
+ 	@echo "Installing messages"
+-	@$(INSTALL_DATA) imgmsg.tcl $(LIB_INSTALL_DIR)
+-	@$(INSTALL_DATA) msgs/* $(LIB_INSTALL_DIR)/msgs
++	@$(INSTALL_DATA) imgmsg.tcl $(DESTDIR)$(LIB_INSTALL_DIR)
++	@$(INSTALL_DATA) msgs/* $(DESTDIR)$(LIB_INSTALL_DIR)/msgs
+ 
+ install-z:	$(Z_LIB_FILE)
+-	@$(tool)/mkinstalldirs $(IMG_INSTALL_DIR) $(INCLUDE_INSTALL_DIR)
++	@$(tool)/mkinstalldirs $(IMG_INSTALL_DIR) $(DESTDIR)$(INCLUDE_INSTALL_DIR)
+ 	@echo "Installing $(Z_LIB_FILE)"
+-	@$(INSTALL_SHLIB) $(Z_LIB_FILE) $(IMG_INSTALL_DIR)
+-	@$(RANLIB) $(IMG_INSTALL_DIR)/$(Z_LIB_FILE)
+-	@rm -f $(IMG_INSTALL_DIR)/libz.so.1.1
+-	@ln -s $(Z_LIB_FILE) $(IMG_INSTALL_DIR)/libz.so.1.1
+-	@rm -f $(IMG_INSTALL_DIR)/libz.so.1
+-	@ln -s $(Z_LIB_FILE) $(IMG_INSTALL_DIR)/libz.so.1
+-	@rm -f $(IMG_INSTALL_DIR)/libz.so
+-	@ln -s libz.so.1 $(IMG_INSTALL_DIR)/libz.so
++	@$(INSTALL_SHLIB) $(Z_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)
++	@$(RANLIB) $(DESTDIR)$(IMG_INSTALL_DIR)/$(Z_LIB_FILE)
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libz.so.1.1
++	@ln -s $(Z_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)/libz.so.1.1
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libz.so.1
++	@ln -s $(Z_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)/libz.so.1
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libz.so
++	@ln -s libz.so.1 $(DESTDIR)$(IMG_INSTALL_DIR)/libz.so
+ 	@for i in zlib.h zconf.h; do \
+ 	    echo "Installing $$i"; \
+-	    $(INSTALL_DATA) $(zlibdir)/$$i $(INCLUDE_INSTALL_DIR); \
++	    $(INSTALL_DATA) $(zlibdir)/$$i $(DESTDIR)$(INCLUDE_INSTALL_DIR); \
+ 	done;
+ 
+ install-png:	$(PNG_LIB_FILE)
+-	@$(tool)/mkinstalldirs $(IMG_INSTALL_DIR) $(INCLUDE_INSTALL_DIR)
++	@$(tool)/mkinstalldirs $(IMG_INSTALL_DIR) $(DESTDIR)$(INCLUDE_INSTALL_DIR)
+ 	@echo "Installing $(PNG_LIB_FILE)"
+-	@$(INSTALL_SHLIB) $(PNG_LIB_FILE) $(IMG_INSTALL_DIR)
+-	@$(RANLIB) $(IMG_INSTALL_DIR)/$(PNG_LIB_FILE)
+-	@rm -f $(IMG_INSTALL_DIR)/libpng.so.2.1
+-	@ln -s $(PNG_LIB_FILE) $(IMG_INSTALL_DIR)/libpng.so.2.1
+-	@rm -f $(IMG_INSTALL_DIR)/libpng.so.2
+-	@ln -s $(PNG_LIB_FILE) $(IMG_INSTALL_DIR)/libpng.so.2
+-	@rm -f $(IMG_INSTALL_DIR)/libpng.so
+-	@ln -s libpng.so.2 $(IMG_INSTALL_DIR)/libpng.so
++	@$(INSTALL_SHLIB) $(PNG_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)
++	@$(RANLIB) $(DESTDIR)$(IMG_INSTALL_DIR)/$(PNG_LIB_FILE)
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libpng.so.2.1
++	@ln -s $(DESTDIR)$(PNG_LIB_FILE) $(IMG_INSTALL_DIR)/libpng.so.2.1
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libpng.so.2
++	@ln -s $(DESTDIR)$(PNG_LIB_FILE) $(IMG_INSTALL_DIR)/libpng.so.2
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libpng.so
++	@ln -s libpng.so.2 $(DESTDIR)$(IMG_INSTALL_DIR)/libpng.so
+ 	@for i in png.h pngconf.h; do \
+ 	    echo "Installing $$i"; \
+-	    $(INSTALL_DATA) $(pngdir)/$$i $(INCLUDE_INSTALL_DIR); \
++	    $(INSTALL_DATA) $(pngdir)/$$i $(DESTDIR)$(INCLUDE_INSTALL_DIR); \
+ 	done;
+ 
+ install-jpeg:	$(JPEG_LIB_FILE)
+-	@$(tool)/mkinstalldirs $(IMG_INSTALL_DIR) $(INCLUDE_INSTALL_DIR)
++	@$(tool)/mkinstalldirs $(IMG_INSTALL_DIR) $(DESTDIR)$(INCLUDE_INSTALL_DIR)
+ 	@echo "Installing $(JPEG_LIB_FILE)"
+-	@$(INSTALL_SHLIB) $(JPEG_LIB_FILE) $(IMG_INSTALL_DIR)
+-	@$(RANLIB) $(IMG_INSTALL_DIR)/$(JPEG_LIB_FILE)
+-	@rm -f $(IMG_INSTALL_DIR)/libjpeg.so.62.0
+-	@ln -s $(JPEG_LIB_FILE) $(IMG_INSTALL_DIR)/libjpeg.so.62.0
+-	@rm -f $(IMG_INSTALL_DIR)/libjpeg.so.62
+-	@ln -s $(JPEG_LIB_FILE) $(IMG_INSTALL_DIR)/libjpeg.so.62
+-	@rm -f $(IMG_INSTALL_DIR)/libjpeg.so
+-	@ln -s libjpeg.so.62 $(IMG_INSTALL_DIR)/libjpeg.so
++	@$(INSTALL_SHLIB) $(JPEG_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)
++	@$(RANLIB) $(DESTDIR)$(IMG_INSTALL_DIR)/$(JPEG_LIB_FILE)
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libjpeg.so.62.0
++	@ln -s $(JPEG_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)/libjpeg.so.62.0
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libjpeg.so.62
++	@ln -s $(JPEG_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)/libjpeg.so.62
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libjpeg.so
++	@ln -s libjpeg.so.62 $(DESTDIR)$(IMG_INSTALL_DIR)/libjpeg.so
+ 	@echo "Installing jconfig.h";
+-	@$(INSTALL_DATA) libjpeg/jconfig.h $(INCLUDE_INSTALL_DIR);
++	@$(INSTALL_DATA) libjpeg/jconfig.h $(DESTDIR)$(INCLUDE_INSTALL_DIR);
+ 	@for i in jpeglib.h jmorecfg.h jerror.h; do \
+ 	    echo "Installing $$i"; \
+-	    $(INSTALL_DATA) $(jpegdir)/$$i $(INCLUDE_INSTALL_DIR); \
++	    $(INSTALL_DATA) $(jpegdir)/$$i $(DESTDIR)$(INCLUDE_INSTALL_DIR); \
+ 	done;
+ 
+ install-tiff:	$(TIFF_LIB_FILE)
+-	@$(tool)/mkinstalldirs $(IMG_INSTALL_DIR) $(INCLUDE_INSTALL_DIR)
++	@$(tool)/mkinstalldirs $(IMG_INSTALL_DIR) $(DESTDIR)$(INCLUDE_INSTALL_DIR)
+ 	@echo "Installing $(TIFF_LIB_FILE)"
+-	@$(INSTALL_SHLIB) $(TIFF_LIB_FILE) $(IMG_INSTALL_DIR)
+-	@$(RANLIB) $(IMG_INSTALL_DIR)/$(TIFF_LIB_FILE)
+-	@rm -f $(IMG_INSTALL_DIR)/libtiff.so.3.5
+-	@ln -s $(TIFF_LIB_FILE) $(IMG_INSTALL_DIR)/libtiff.so.3.5
+-	@rm -f $(IMG_INSTALL_DIR)/libtiff.so.3
+-	@ln -s $(TIFF_LIB_FILE) $(IMG_INSTALL_DIR)/libtiff.so.3
+-	@rm -f $(IMG_INSTALL_DIR)/libtiff.so
+-	@ln -s libtiff.so.3 $(IMG_INSTALL_DIR)/libtiff.so
++	@$(INSTALL_SHLIB) $(TIFF_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)
++	@$(RANLIB) $(DESTDIR)$(IMG_INSTALL_DIR)/$(TIFF_LIB_FILE)
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libtiff.so.3.5
++	@ln -s $(TIFF_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)/libtiff.so.3.5
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libtiff.so.3
++	@ln -s $(TIFF_LIB_FILE) $(DESTDIR)$(IMG_INSTALL_DIR)/libtiff.so.3
++	@rm -f $(DESTDIR)$(IMG_INSTALL_DIR)/libtiff.so
++	@ln -s libtiff.so.3 $(DESTDIR)$(IMG_INSTALL_DIR)/libtiff.so
+ 	@for i in tiff.h tiffio.h tiffconf.h; do \
+ 	    echo "Installing $$i"; \
+-	    $(INSTALL_DATA) $(tiffdir)/$$i $(INCLUDE_INSTALL_DIR); \
++	    $(INSTALL_DATA) $(tiffdir)/$$i $(DESTDIR)$(INCLUDE_INSTALL_DIR); \
+ 	done;
+ 
+ bindist:
