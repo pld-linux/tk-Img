@@ -2,7 +2,7 @@ Summary:	Additional file formats support for Tk
 Summary(pl):	Obs³uga dodatkowych formatów plików dla Tk
 Name:		tk-Img
 Version:	1.2.4
-Release:	2
+Release:	3
 License:	distributable
 Group:		Development/Languages/Tcl
 Source0:	http://ftp.neosoft.com/cl/sorted/packages-8.0/graphics/%{name}/%{version}/img%{version}.tar.gz
@@ -56,4 +56,4 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc ANNOUNCE README changes license.terms
-%{_libdir}/Img*
+/usr/lib/Img*
