@@ -1,5 +1,5 @@
 Summary:	Additional file formats support for Tk
-Summary(pl):	Obs³uga dodatkowych formatów plików dla Tk
+Summary(pl.UTF-8):   ObsÅ‚uga dodatkowych formatÃ³w plikÃ³w dla Tk
 Name:		tk-Img
 Version:	1.2.4
 Release:	3
@@ -26,9 +26,9 @@ This package enhances Tk, adding support for many other Image formats:
 BMP, XBM, XPM, GIF (with transparency, but without LZW), PNG, JPEG,
 TIFF and PostScript.
 
-%description -l pl
-Ten pakiet rozszerza Tk, dodaj±c obs³ugê wielu formatów graficznych:
-BMP, XBM, XPM, GIF (z przezroczysto¶ci±, ale bez LZW), PNG, JPEG, TIFF
+%description -l pl.UTF-8
+Ten pakiet rozszerza Tk, dodajÄ…c obsÅ‚ugÄ™ wielu formatÃ³w graficznych:
+BMP, XBM, XPM, GIF (z przezroczystoÅ›ciÄ…, ale bez LZW), PNG, JPEG, TIFF
 oraz PostScript.
 
 %prep
