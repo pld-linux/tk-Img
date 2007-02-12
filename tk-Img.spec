@@ -1,5 +1,5 @@
 Summary:	Additional file formats support for Tk
-Summary(pl.UTF-8):   Obsługa dodatkowych formatów plików dla Tk
+Summary(pl.UTF-8):	Obsługa dodatkowych formatów plików dla Tk
 Name:		tk-Img
 Version:	1.2.4
 Release:	3
