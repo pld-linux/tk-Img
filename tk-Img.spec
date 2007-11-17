@@ -17,6 +17,7 @@ BuildRequires:	automake
 BuildRequires:	libjpeg-devel >= 6b
 BuildRequires:	libpng-devel >= 1.0.8
 BuildRequires:	libtiff-devel >= 3.5.5
+BuildRequires:	tcl-devel
 BuildRequires:	tk-devel >= 8.4.3
 BuildRequires:	zlib-devel >= 1.1.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
