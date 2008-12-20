@@ -1,0 +1,126 @@
+--- img1.2.4/imgBMP.c~	2008-12-20 12:37:31.354274543 +0100
++++ img1.2.4/imgBMP.c	2008-12-20 12:43:21.564238850 +0100
+@@ -234,7 +234,7 @@
+ 	return TCL_ERROR;
+     }
+ 
+-    Tk_PhotoExpand(imageHandle, destX + width, destY + height);
++    Tk_PhotoExpand(interp, imageHandle, destX + width, destY + height);
+ 
+     bytesPerLine = ((numBits * fileWidth + 31)/32)*4;
+     line = (unsigned char *) ckalloc(bytesPerLine);
+--- img1.2.4/imgGIF.c~	2008-12-20 12:37:31.354274543 +0100
++++ img1.2.4/imgGIF.c	2008-12-20 12:43:46.987569681 +0100
+@@ -321,7 +321,7 @@
+ 	return TCL_OK;
+     }
+ 
+-    Tk_PhotoExpand(imageHandle, destX + width, destY + height);
++    Tk_PhotoExpand(interp, imageHandle, destX + width, destY + height);
+ 
+     block.pixelSize = 4;
+     block.offset[0] = 0;
+--- img1.2.4/imgJPEG.c~	2008-12-20 12:37:31.357607826 +0100
++++ img1.2.4/imgJPEG.c	2008-12-20 12:43:51.717569149 +0100
+@@ -1016,7 +1016,7 @@
+     block.pitch = block.pixelSize * fileWidth;
+     block.offset[3] = block.offset[0];
+ 
+-    Tk_PhotoExpand(imageHandle, destX + outWidth, destY + outHeight);
++    Tk_PhotoExpand(interp, imageHandle, destX + outWidth, destY + outHeight);
+ 
+     /* Make a temporary one-row-high sample array */
+     buffer = (*cinfo->mem->alloc_sarray)
+--- img1.2.4/imgPNG.c~	2000-08-13 18:21:41.000000000 +0200
++++ img1.2.4/imgPNG.c	2008-12-20 12:43:58.514235253 +0100
+@@ -95,7 +95,7 @@
+ 
+ static int CommonMatchPNG _ANSI_ARGS_((MFile *handle, int *widthPtr,
+ 	int *heightPtr));
+-static int CommonReadPNG _ANSI_ARGS_((png_structp png_ptr, Tcl_Obj *format,
++static int CommonReadPNG _ANSI_ARGS_((Tcl_Interp *interp, png_structp png_ptr, Tcl_Obj *format,
+ 	Tk_PhotoHandle imageHandle, int destX, int destY, int width,
+ 	int height, int srcX, int srcY));
+ static int CommonWritePNG _ANSI_ARGS_((Tcl_Interp *interp, png_structp png_ptr,
+@@ -343,7 +343,7 @@
+ 
+     png.set_read_fn(png_ptr, (png_voidp) &handle, tk_png_read);
+ 
+-    return CommonReadPNG(png_ptr, format, imageHandle, destX, destY,
++    return CommonReadPNG(interp, png_ptr, format, imageHandle, destX, destY,
+ 	    width, height, srcX, srcY);
+ }
+ 
+@@ -375,7 +375,7 @@
+ 
+     png.set_read_fn(png_ptr,(png_voidp) &handle, tk_png_read);
+ 
+-    return CommonReadPNG(png_ptr, format, imageHandle, destX, destY,
++    return CommonReadPNG(interp, png_ptr, format, imageHandle, destX, destY,
+ 	    width, height, srcX, srcY);
+ }
+ 
+@@ -387,8 +387,9 @@
+ 
+ #define block bl.ck
+ 
+-static int CommonReadPNG(png_ptr, format, imageHandle, destX, destY,
++static int CommonReadPNG(interp, png_ptr, format, imageHandle, destX, destY,
+ 	width, height, srcX, srcY)
++    Tcl_Interp *interp;
+     png_structp png_ptr;
+     Tcl_Obj *format;
+     Tk_PhotoHandle imageHandle;
+@@ -442,7 +442,7 @@
+ 	return TCL_OK;
+     }
+ 
+-    Tk_PhotoExpand(imageHandle, destX + width, destY + height);
++    Tk_PhotoExpand(interp, imageHandle, destX + width, destY + height);
+ 
+     Tk_PhotoGetImage(imageHandle, &block);
+ 
+--- img1.2.4/imgPS.c~	2008-12-20 12:37:31.357607826 +0100
++++ img1.2.4/imgPS.c	2008-12-20 12:44:16.014235432 +0100
+@@ -364,7 +364,7 @@
+ 	Tcl_DStringFree(&dstring);
+ 	return TCL_OK;
+     }
+-    Tk_PhotoExpand(imageHandle, destX + width, destY + height);
++    Tk_PhotoExpand(interp, imageHandle, destX + width, destY + height);
+ 
+     maxintensity = strtoul(p, &p, 0);
+     if ((type != '4') && !maxintensity) {
+--- img1.2.4/imgXBM.c~	2000-08-13 06:41:13.000000000 +0200
++++ img1.2.4/imgXBM.c	2008-12-20 12:44:16.064858306 +0100
+@@ -226,7 +226,7 @@
+ 	return TCL_OK;
+     }
+ 
+-    Tk_PhotoExpand(imageHandle, destX + width, destY + height);
++    Tk_PhotoExpand(interp, imageHandle, destX + width, destY + height);
+ 
+     numBytes = ((fileWidth+7)/8)*32;
+     block.width = fileWidth;
+--- img1.2.4/imgXPM.c~	2008-12-20 12:37:31.377607165 +0100
++++ img1.2.4/imgXPM.c	2008-12-20 12:44:16.077566832 +0100
+@@ -437,7 +437,7 @@
+     block.pub.height = 1;
+     block.pub.pixelPtr = (unsigned char *) ckalloc((unsigned) block.pub.pixelSize * width);
+ 
+-    Tk_PhotoExpand(imageHandle, destX + width, destY + height);
++    Tk_PhotoExpand(interp, imageHandle, destX + width, destY + height);
+ 
+     i = srcY;
+     while (i-- > 0) {
+--- img1.2.4/imgWindow.c~	2008-12-20 12:37:31.357607826 +0100
++++ img1.2.4/imgWindow.c	2008-12-20 12:44:16.104236911 +0100
+@@ -326,7 +326,7 @@
+     XQueryColors(Tk_Display(tkwin), cmap, cdata.colors, ncolors);
+ #endif
+ 
+-    Tk_PhotoExpand(imageHandle, destX + width, destY + height);
++    Tk_PhotoExpand(interp, imageHandle, destX + width, destY + height);
+     block.offset[0] = 0;
+     block.offset[3] = 0;
+ #ifndef	__WIN32__
